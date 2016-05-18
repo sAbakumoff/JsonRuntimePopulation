@@ -1,0 +1,160 @@
+﻿<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+	<Body>
+		<Height>7.75in</Height>
+		<ReportItems>
+			<Chart Name="Chart1">
+				<CategoryAxis>
+					<Axis>
+						<Title>
+							<Caption>Year</Caption>
+						</Title>
+						<Visible>true</Visible>
+					</Axis>
+				</CategoryAxis>
+				<CategoryGroupings>
+					<CategoryGrouping>
+						<DynamicCategories>
+							<Grouping Name="Traffic_Year">
+								<GroupExpressions>
+									<GroupExpression>=Year(Fields!trafficDate.Value)</GroupExpression>
+								</GroupExpressions>
+							</Grouping>
+							<Label>=Year(Fields!trafficDate.Value)</Label>
+							<Sorting>
+								<SortBy>
+									<Direction>Ascending</Direction>
+									<SortExpression>=Year(Fields!trafficDate.Value)</SortExpression>
+								</SortBy>
+							</Sorting>
+						</DynamicCategories>
+					</CategoryGrouping>
+				</CategoryGroupings>
+				<ChartData>
+					<ChartSeries>
+						<DataPoints>
+							<DataPoint>
+								<DataLabel />
+								<DataValues>
+									<DataValue>
+										<Value>=Sum(Fields!visitorsCount.Value)</Value>
+									</DataValue>
+								</DataValues>
+								<Marker />
+							</DataPoint>
+						</DataPoints>
+						<dd:Subtype xmlns:dd="http://schemas.datadynamics.com/reporting/2005/02/reportdefinition">Stacked</dd:Subtype>
+						<dd:ValueAxisName xmlns:dd="http://schemas.datadynamics.com/reporting/2005/02/reportdefinition">Y1</dd:ValueAxisName>
+					</ChartSeries>
+				</ChartData>
+				<DataSetName>DataSet1</DataSetName>
+				<Height>7.5in</Height>
+				<Left>0.125in</Left>
+				<Legend>
+					<Position>RightCenter</Position>
+					<Style>
+						<FontSize>8pt</FontSize>
+					</Style>
+					<dd:UseSmartSettings xmlns:dd="http://schemas.datadynamics.com/reporting/2005/02/reportdefinition">true</dd:UseSmartSettings>
+					<Visible>true</Visible>
+				</Legend>
+				<Palette>Excel</Palette>
+				<PlotArea>
+					<Style>
+						<BackgroundColor>Transparent</BackgroundColor>
+					</Style>
+				</PlotArea>
+				<SeriesGroupings>
+					<SeriesGrouping>
+						<StaticSeries>
+							<StaticMember>
+								<Label />
+							</StaticMember>
+						</StaticSeries>
+					</SeriesGrouping>
+					<SeriesGrouping>
+						<DynamicSeries>
+							<Grouping Name="TrafficSource">
+								<GroupExpressions>
+									<GroupExpression>=Fields!trafficSource.Value</GroupExpression>
+								</GroupExpressions>
+							</Grouping>
+							<Label>=Fields!trafficSource.Value</Label>
+						</DynamicSeries>
+					</SeriesGrouping>
+				</SeriesGroupings>
+				<Subtype>Plain</Subtype>
+				<ThreeDProperties>
+					<Inclination>20</Inclination>
+					<ProjectionMode>Orthographic</ProjectionMode>
+					<Rotation>20</Rotation>
+					<Shading>Real</Shading>
+				</ThreeDProperties>
+				<Title>
+					<Caption>Web Site Visitors Stat</Caption>
+					<Style>
+						<FontSize>8pt</FontSize>
+						<TextAlign>Center</TextAlign>
+					</Style>
+				</Title>
+				<Top>0.125in</Top>
+				<Type>Column</Type>
+				<ValueAxis>
+					<Axis>
+						<Title>
+							<Caption>Axis Y</Caption>
+						</Title>
+						<Visible>true</Visible>
+					</Axis>
+				</ValueAxis>
+				<Width>7.875in</Width>
+				<dd:ChartAreas xmlns:dd="http://schemas.datadynamics.com/reporting/2005/02/reportdefinition">
+					<ChartArea>
+						<ChartValueAxes>
+							<ChartAxis>
+								<Axis>
+									<Title />
+									<Visible>true</Visible>
+									<dd:Name>Y1</dd:Name>
+								</Axis>
+							</ChartAxis>
+						</ChartValueAxes>
+					</ChartArea>
+				</dd:ChartAreas>
+			</Chart>
+		</ReportItems>
+	</Body>
+	<BottomMargin>1in</BottomMargin>
+	<PageHeight>11in</PageHeight>
+	<PageWidth>8.5in</PageWidth>
+	<TopMargin>1in</TopMargin>
+	<Width>8.125in</Width>
+	<DataSources>
+		<DataSource Name="DataSource1">
+			<ConnectionProperties>
+				<DataProvider>JSON</DataProvider>
+			</ConnectionProperties>
+		</DataSource>
+	</DataSources>
+	<DataSets>
+		<DataSet Name="DataSet1">
+			<Fields>
+				<Field Name="registered">
+					<DataField>registered</DataField>
+				</Field>
+				<Field Name="trafficSource">
+					<DataField>trafficSource</DataField>
+				</Field>
+				<Field Name="visitorsCount">
+					<DataField>visitorsCount</DataField>
+				</Field>
+				<Field Name="trafficDate">
+					<Value>=DateValue( Fields!registered.Value )</Value>
+				</Field>
+			</Fields>
+			<Query>
+				<CommandText>$.[*]</CommandText>
+				<DataSourceName>DataSource1</DataSourceName>
+			</Query>
+		</DataSet>
+	</DataSets>
+</Report>
